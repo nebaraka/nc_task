@@ -58,9 +58,9 @@ public class AirlaneDAO extends AbstractDAO <Airlane, Integer> {
 
     @Override
     public void delete(Integer id) {
-        PreparedStatement ps = getPreparedStatement("DELETE airport.airlanes t WHERE t.id = " + id);
+        PreparedStatement ps = getPreparedStatement("DELETE FROM airport.airlanes WHERE id = " + id);
         try {
-            ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -74,7 +74,6 @@ public class AirlaneDAO extends AbstractDAO <Airlane, Integer> {
                 airlane.getId() + ", \'" + airlane.getName() + "\', \'" + airlane.getCountry() + "\')");
         try {
             ps.executeUpdate();
-            System.out.println("Executed successfully");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

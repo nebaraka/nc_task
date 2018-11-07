@@ -20,13 +20,13 @@ public class DepartureDAO extends AbstractDAO<Departure, Integer> {
             while (rs.next()) {
                 Departure departure = new Departure();
                 departure.setId(rs.getInt(1));
-                departure.setNumber(rs.getDate(2).toString());
-                departure.setDestName(rs.getDate(3).toString());
-                departure.setDepTime(rs.getDate(4).toString());
-                departure.setArrTime(rs.getDate(5).toString());
-                departure.setGate(rs.getDate(6).toString());
-                departure.setAirlaneName(rs.getDate(7).toString());
-                departure.setPlaneMark(rs.getDate(8).toString());
+                departure.setNumber(rs.getString(2));
+                departure.setDestName(rs.getString(3));
+                departure.setDepTime(rs.getTime(4).toString());
+                departure.setArrTime(rs.getTime(5).toString());
+                departure.setGate(rs.getString(6));
+                departure.setAirlaneName(rs.getString(7));
+                departure.setPlaneMark(rs.getString(8));
                 lst.add(departure);
             }
         } catch (SQLException e) {
@@ -47,8 +47,8 @@ public class DepartureDAO extends AbstractDAO<Departure, Integer> {
             departure.setId(rs.getInt(1));
             departure.setNumber(rs.getDate(2).toString());
             departure.setDestName(rs.getDate(3).toString());
-            departure.setDepTime(rs.getDate(4).toString());
-            departure.setArrTime(rs.getDate(5).toString());
+            departure.setDepTime(rs.getTime(4).toString());
+            departure.setArrTime(rs.getTime(5).toString());
             departure.setGate(rs.getDate(6).toString());
             departure.setAirlaneName(rs.getDate(7).toString());
             departure.setPlaneMark(rs.getDate(8).toString());
@@ -63,9 +63,9 @@ public class DepartureDAO extends AbstractDAO<Departure, Integer> {
 
     @Override
     public void delete(Integer id) {
-        PreparedStatement ps = getPreparedStatement("DELETE airport.departures t WHERE t.id = " + id);
+        PreparedStatement ps = getPreparedStatement("DELETE FROM airport.departures WHERE id = " + id);
         try {
-            ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -75,13 +75,13 @@ public class DepartureDAO extends AbstractDAO<Departure, Integer> {
 
     @Override
     public void insert(Departure departure) {
-        PreparedStatement ps = getPreparedStatement("INSERT airport.departures t VALUES (" +
+        PreparedStatement ps = getPreparedStatement("INSERT airport.departures VALUES (" +
                 departure.getId() + ", \'" + departure.getNumber() + "\', \'" + departure.getDestName() +
-                "\', STR_TO_DATE(\'" + departure.getDepTime() + "\'), STR_TO_DATE(\'" +
-                departure.getArrTime() + "\'), \'" + departure.getGate() +
+                "\', \'" + departure.getDepTime() + "\', \'" +
+                departure.getArrTime() + "\', \'" + departure.getGate() +
                 "\', \'" + departure.getAirlaneName() + "\', \'" + departure.getPlaneMark() + "\')");
         try {
-            ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

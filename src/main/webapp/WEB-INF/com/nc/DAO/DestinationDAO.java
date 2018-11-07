@@ -55,9 +55,9 @@ public class DestinationDAO extends AbstractDAO<Destination, Integer> {
 
     @Override
     public void delete(Integer id) {
-        PreparedStatement ps = getPreparedStatement("DELETE airport.destinations t WHERE t.id = " + id);
+        PreparedStatement ps = getPreparedStatement("DELETE FROM airport.destinations WHERE id = " + id);
         try {
-            ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -67,11 +67,11 @@ public class DestinationDAO extends AbstractDAO<Destination, Integer> {
 
     @Override
     public void insert(Destination destination) {
-        PreparedStatement ps = getPreparedStatement("INSERT airport.destinations t VALUES (" +
+        PreparedStatement ps = getPreparedStatement("INSERT airport.destinations VALUES (" +
                 destination.getId() + ", \'" + destination.getCity() + "\', \'" + destination.getCountry() +
                 "\', " + destination.getDistance() + ")");
         try {
-            ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

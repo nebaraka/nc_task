@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArrivalDAO extends AbstractDAO<Arrival, Integer> {
-    public static final String SELECT_ALL_ARRIVALS = "SELECT * FROM airport.arrivalss";
+    public static final String SELECT_ALL_ARRIVALS = "SELECT * FROM airport.arrivals";
 
     @Override
     public List<Arrival> getAll() {
@@ -20,13 +20,13 @@ public class ArrivalDAO extends AbstractDAO<Arrival, Integer> {
             while (rs.next()) {
                 Arrival arrival = new Arrival();
                 arrival.setId(rs.getInt(1));
-                arrival.setNumber(rs.getDate(2).toString());
-                arrival.setDestName(rs.getDate(3).toString());
-                arrival.setArrTime(rs.getDate(4).toString());
-                arrival.setDepTime(rs.getDate(5).toString());
-                arrival.setGate(rs.getDate(6).toString());
-                arrival.setAirlaneName(rs.getDate(7).toString());
-                arrival.setPlaneMark(rs.getDate(8).toString());
+                arrival.setNumber(rs.getString(2));
+                arrival.setDestName(rs.getString(3));
+                arrival.setArrTime(rs.getTime(4).toString());
+                arrival.setDepTime(rs.getTime(5).toString());
+                arrival.setGate(rs.getString(6));
+                arrival.setAirlaneName(rs.getString(7));
+                arrival.setPlaneMark(rs.getString(8));
                 lst.add(arrival);
             }
         } catch (SQLException e) {
@@ -45,13 +45,13 @@ public class ArrivalDAO extends AbstractDAO<Arrival, Integer> {
         try {
             ResultSet rs = ps.executeQuery();
             arrival.setId(rs.getInt(1));
-            arrival.setNumber(rs.getDate(2).toString());
-            arrival.setDestName(rs.getDate(3).toString());
-            arrival.setArrTime(rs.getDate(4).toString());
-            arrival.setDepTime(rs.getDate(5).toString());
-            arrival.setGate(rs.getDate(6).toString());
-            arrival.setAirlaneName(rs.getDate(7).toString());
-            arrival.setPlaneMark(rs.getDate(8).toString());
+            arrival.setNumber(rs.getString(2));
+            arrival.setDestName(rs.getString(3));
+            arrival.setArrTime(rs.getTime(4).toString());
+            arrival.setDepTime(rs.getTime(5).toString());
+            arrival.setGate(rs.getString(6));
+            arrival.setAirlaneName(rs.getString(7));
+            arrival.setPlaneMark(rs.getString(8));
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -63,9 +63,9 @@ public class ArrivalDAO extends AbstractDAO<Arrival, Integer> {
 
     @Override
     public void delete(Integer id) {
-        PreparedStatement ps = getPreparedStatement("DELETE airport.arrivals t WHERE t.id = " + id);
+        PreparedStatement ps = getPreparedStatement("DELETE FROM airport.arrivals WHERE id = " + id);
         try {
-            ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -75,13 +75,13 @@ public class ArrivalDAO extends AbstractDAO<Arrival, Integer> {
 
     @Override
     public void insert(Arrival departure) {
-        PreparedStatement ps = getPreparedStatement("INSERT airport.arrivals t VALUES (" +
+        PreparedStatement ps = getPreparedStatement("INSERT airport.arrivals VALUES (" +
                 departure.getId() + ", \'" + departure.getNumber() + "\', \'" + departure.getDestName() +
-                "\', STR_TO_DATE(\'" + departure.getArrTime() + "\'), STR_TO_DATE(\'" +
-                departure.getDepTime() + "\'), \'" + departure.getGate() +
+                "\', \'" + departure.getArrTime() + "\', \'" +
+                departure.getDepTime() + "\', \'" + departure.getGate() +
                 "\', \'" + departure.getAirlaneName() + "\', \'" + departure.getPlaneMark() + "\')");
         try {
-            ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

@@ -59,9 +59,9 @@ public class PlaneDAO extends AbstractDAO<Plane, Integer> {
 
     @Override
     public void delete(Integer id) {
-        PreparedStatement ps = getPreparedStatement("DELETE airport.planes t WHERE t.id = " + id);
+        PreparedStatement ps = getPreparedStatement("DELETE FROM airport.planes WHERE id = " + id);
         try {
-            ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -71,12 +71,12 @@ public class PlaneDAO extends AbstractDAO<Plane, Integer> {
 
     @Override
     public void insert(Plane plane) {
-        PreparedStatement ps = getPreparedStatement("INSERT airport.planes t VALUES (" +
+        PreparedStatement ps = getPreparedStatement("INSERT airport.planes VALUES (" +
                 plane.getId() + ", \'" + plane.getModelName() + "\', \'" + plane.getSeatsAmount() +
                 "\', \'" + plane.getMark() + "\', \'" + plane.getAirlane() +
                 "\', " + plane.getRadius() + ")");
         try {
-            ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

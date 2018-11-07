@@ -16,17 +16,21 @@ public class AirlaneServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AirlaneDAO dao = new AirlaneDAO();
         List<Airlane> lst = dao.getAll();
-        req.setAttribute("lst", lst);
+        req.setAttribute("airLst", lst);
         getServletContext().getRequestDispatcher("/airlanes.jsp").forward(req, resp);
     }
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AirlaneDAO dao = new AirlaneDAO();
-        int id = Integer.parseInt(req.getParameter("id"));
-        String name = req.getParameter("name");
-        String country = req.getParameter("country");
-        dao.insert(new Airlane(id, name, country));
+        if (req.getParameter("delete") != null) {
+            dao.delete(Integer.parseInt(req.getParameter("delete")));
+        } else {
+            int id = Integer.parseInt(req.getParameter("id"));
+            String name = req.getParameter("name");
+            String country = req.getParameter("country");
+            dao.insert(new Airlane(id, name, country));
+        }
 
         doGet(req, resp);
     }
