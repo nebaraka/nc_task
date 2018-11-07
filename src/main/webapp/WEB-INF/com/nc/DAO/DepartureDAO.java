@@ -76,7 +76,8 @@ public class DepartureDAO extends AbstractDAO<Departure, Integer> {
     @Override
     public void insert(Departure departure) {
         PreparedStatement ps = getPreparedStatement("INSERT airport.departures VALUES (" +
-                departure.getId() + ", \'" + departure.getNumber() + "\', \'" + departure.getDestName() +
+                departure.getId() +
+                ", \'" + departure.getNumber() + "\', \'" + departure.getDestName() +
                 "\', \'" + departure.getDepTime() + "\', \'" +
                 departure.getArrTime() + "\', \'" + departure.getGate() +
                 "\', \'" + departure.getAirlaneName() + "\', \'" + departure.getPlaneMark() + "\')");

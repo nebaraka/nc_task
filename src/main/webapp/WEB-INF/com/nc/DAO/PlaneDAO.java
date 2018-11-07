@@ -72,7 +72,8 @@ public class PlaneDAO extends AbstractDAO<Plane, Integer> {
     @Override
     public void insert(Plane plane) {
         PreparedStatement ps = getPreparedStatement("INSERT airport.planes VALUES (" +
-                plane.getId() + ", \'" + plane.getModelName() + "\', \'" + plane.getSeatsAmount() +
+                plane.getId() +
+                ", \'" + plane.getModelName() + "\', \'" + plane.getSeatsAmount() +
                 "\', \'" + plane.getMark() + "\', \'" + plane.getAirlane() +
                 "\', " + plane.getRadius() + ")");
         try {

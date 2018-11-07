@@ -68,7 +68,8 @@ public class DestinationDAO extends AbstractDAO<Destination, Integer> {
     @Override
     public void insert(Destination destination) {
         PreparedStatement ps = getPreparedStatement("INSERT airport.destinations VALUES (" +
-                destination.getId() + ", \'" + destination.getCity() + "\', \'" + destination.getCountry() +
+                destination.getId() +
+                ", \'" + destination.getCity() + "\', \'" + destination.getCountry() +
                 "\', " + destination.getDistance() + ")");
         try {
             ps.executeUpdate();

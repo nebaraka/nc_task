@@ -74,12 +74,13 @@ public class ArrivalDAO extends AbstractDAO<Arrival, Integer> {
     }
 
     @Override
-    public void insert(Arrival departure) {
+    public void insert(Arrival arrival) {
         PreparedStatement ps = getPreparedStatement("INSERT airport.arrivals VALUES (" +
-                departure.getId() + ", \'" + departure.getNumber() + "\', \'" + departure.getDestName() +
-                "\', \'" + departure.getArrTime() + "\', \'" +
-                departure.getDepTime() + "\', \'" + departure.getGate() +
-                "\', \'" + departure.getAirlaneName() + "\', \'" + departure.getPlaneMark() + "\')");
+                arrival.getId() +
+                ", \'" + arrival.getNumber() + "\', \'" + arrival.getDestName() +
+                "\', \'" + arrival.getArrTime() + "\', \'" +
+                arrival.getDepTime() + "\', \'" + arrival.getGate() +
+                "\', \'" + arrival.getAirlaneName() + "\', \'" + arrival.getPlaneMark() + "\')");
         try {
             ps.executeUpdate();
         } catch (SQLException e) {
