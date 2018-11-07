@@ -11,9 +11,12 @@ public abstract class AbstractDAO <E, K> {
     private Connection connection;
 
     public AbstractDAO() {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/airport");
-        HikariDataSource ds = new HikariDataSource(config);
+        HikariDataSource ds = new HikariDataSource();
+        ds.setDriverClassName("com.mysql.jdbc.Driver");
+        ds.setJdbcUrl("jdbc:mysql://localhost:3306?useUnicode=true&useJDBCCompliantTimezoneShift=" +
+                "true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+        ds.setUsername("root");
+        ds.setPassword("password");
         try {
             this.connection = ds.getConnection();
         } catch (SQLException e) {
@@ -29,6 +32,7 @@ public abstract class AbstractDAO <E, K> {
 
     public PreparedStatement getPreparedStatement(String sql) {
         PreparedStatement ps = null;
+        if (connection == null) System.out.println("Connection is null");
         try {
             ps = connection.prepareStatement(sql);
         } catch (SQLException e) {

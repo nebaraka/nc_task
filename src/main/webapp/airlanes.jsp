@@ -25,9 +25,9 @@
                     <button type="delete">Delete</button>
                 </form>
                 <tr>
-                    <td><%airlane.getId();%></td>
-                    <td><%airlane.getName();%></td>
-                    <td><%airlane.getCountry();%></td>
+                    <td><%=airlane.getId()%></td>
+                    <td><%=airlane.getName()%></td>
+                    <td><%=airlane.getCountry()%></td>
                 </tr>
                 <%
                     }

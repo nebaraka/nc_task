@@ -27,5 +27,7 @@ public class AirlaneServlet extends HttpServlet {
         String name = req.getParameter("name");
         String country = req.getParameter("country");
         dao.insert(new Airlane(id, name, country));
+
+        doGet(req, resp);
     }
 }

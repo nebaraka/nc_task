@@ -11,6 +11,11 @@ import java.util.List;
 public class AirlaneDAO extends AbstractDAO <Airlane, Integer> {
     public static final String SELECT_ALL_AIRLANES = "SELECT * FROM airport.airlanes";
 
+    public AirlaneDAO() {
+        super();
+    }
+
+
     @Override
     public List<Airlane> getAll() {
         List<Airlane> lst = new ArrayList<>();
@@ -65,10 +70,11 @@ public class AirlaneDAO extends AbstractDAO <Airlane, Integer> {
 
     @Override
     public void insert(Airlane airlane) {
-        PreparedStatement ps = getPreparedStatement("INSERT airport.airlanes t VALUES (" +
+        PreparedStatement ps = getPreparedStatement("INSERT airport.airlanes VALUES (" +
                 airlane.getId() + ", \'" + airlane.getName() + "\', \'" + airlane.getCountry() + "\')");
         try {
-            ps.executeQuery();
+            ps.executeUpdate();
+            System.out.println("Executed successfully");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
